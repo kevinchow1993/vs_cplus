@@ -14,7 +14,7 @@ main(int argc, char const *argv[])
         cout<<a[i]<<" ";
     }*/
     
-   // getline(cin,s);
+   getline(cin,s);
     cout<<a<<endl;
     cin.get();
     return 0;
