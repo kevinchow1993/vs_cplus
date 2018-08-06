@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "iostream": "cpp",
+        "istream": "cpp",
+        "array": "cpp",
+        "hash_map": "cpp"
+    }
+}
