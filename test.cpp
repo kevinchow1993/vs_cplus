@@ -1,5 +1,8 @@
-#include "common_include"
-#include "kdl_conversions/kdl_msg.h"
+#include<iostream>
+#include<cmath>
+
+
+
 
 using namespace std;
 
@@ -9,6 +12,8 @@ int main(int argc, char const *argv[])
     Monday,Thusday,Wensday,Thursday,Friday,Satuday,sunday
 };
     cout<<Monday<<endl;
+    int a=9;
+    cout<<pow(9,2)<<endl;
     cin.get();
     return 0;
 }
