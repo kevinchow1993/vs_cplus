@@ -33,11 +33,12 @@ int is_in_string(string &s1,string &s2){
 
 int main(int argc, char const *argv[])
 {
-    string s1="dsfa周ashdffd";
-    string s2="hf周g";
+    string s1="dsfaashdffd";
+    string s2="aash";
     cout<<"s1="<<s1<<"\ns2="<<s2<<endl;
    // cin>>s1>>s2;
    // cout<<"s1:"<<s1<<"\ns2:"<<s2<<endl;
+   cout<<s1.find(s2)<<endl;
 
     saima_zifuchuan sz;
 

@@ -3,6 +3,7 @@
         "iostream": "cpp",
         "istream": "cpp",
         "array": "cpp",
-        "hash_map": "cpp"
+        "hash_map": "cpp",
+        "cmath": "cpp"
     }
 }
