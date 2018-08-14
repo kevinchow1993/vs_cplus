@@ -26,6 +26,8 @@ test_shared_ptr::~test_shared_ptr()
 
 int main()
 {
+
+    
     test_shared_ptr *p = new test_shared_ptr(8);
     shared_ptr<test_shared_ptr> aptr(p);
     std::cout << "aptr.use_count() = " << aptr.use_count() <<"  value = "<<aptr->val<<std::endl;//use_count 是引用计数器
