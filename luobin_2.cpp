@@ -3,7 +3,7 @@
 #include<iostream>
 using namespace std;
 
- void DFS(vector<vector<int>> &mark, vector<vector<int>> &grid, int &sum, int x, int y)
+ void DFS(vector<vector<int>> &mark, vector<vector<int>> &grid, int& sum, int x, int y)
  {
 	mark[x][y] = 1;
 	static int dx[] = { -1,1,0,0,1,-1,-1,1 };
@@ -15,7 +15,8 @@ using namespace std;
 		if (newx < 0 || newx >= mark.size() || newy < 0 || newy >= mark.size())
 			continue;
 		if (mark[newx][newy] == 0 && grid[newx][newy] == 1)
-			DFS(mark, grid, sum + 1, newx, newy);
+			sum ++;
+			DFS(mark, grid, sum, newx, newy);
 	}
 
 }
