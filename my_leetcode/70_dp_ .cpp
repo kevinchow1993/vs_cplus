@@ -4,6 +4,8 @@
 #include<queue>
 #include<cmath>
 #include<algorithm>
+#include<limits>
+
 
 using namespace std;
 
@@ -141,20 +143,181 @@ int minimumTotal(vector<vector<int> > &triangle){
     return dp[0][0];
 }
 
+/**
+ * @brief 300.最长上升子序列
+ * 
+ * dp[i] 为以nums[i]结尾的最长子序列长度
+ * 输入: [10,9,2,5,3,7,101,18]
+ * 输出: 4 
+ * 解释: 最长的上升子序列是 [2,3,7,101]，它的长度是 4。
+ * 
+ * @param nums 
+ * @return int 
+ */
+int lengthOfLIS(vector<int>& nums) {
+    
+    if(nums.empty()){
+        return 0;
+    }
+    vector<int> dp(nums.size(),1);
+    int max;
+    int maxofall=1;
+    dp[0]=1;
+    for(int i = 1;i<nums.size();i++){
+        for(int j=0;j<i;j++){
+            if(nums[i]>nums[j]){
+                max = dp[j]+1;
+                if(dp[i]<max){
+                    dp[i]=max;
+                }
+            }
+            
+        }
+        if(dp[i]>maxofall){
+            maxofall = dp[i];
+        }
+    }
+    return maxofall;
+
+}
+
+/**
+ * @brief 给定一个包含非负整数的 m x n 网格，请找出一条从左上角到右下角的路径，使得路径上的数字总和为最小。
+ * 说明：每次只能向下或者向右移动一步。
+ * 输入:
+ * [
+ * [1,3,1],
+ * [1,5,1],
+ * [4,2,1]
+ * 输出: 7
+ * 解释: 因为路径 1→3→1→1→1 的总和最小。
+ * dp[i][j] = [i][j]位置最小路径和
+ * @param grid 
+ * @return int 
+ */
+int minPathSum(vector<vector<int> > &grid){
+    vector<vector<int> > dp(grid.size(),vector<int>(grid[0].size(),INT16_MAX));
+    dp[0][0] = grid[0][0];
+    
+    for(size_t i = 1; i < grid.size(); i++)
+    {
+        dp[i][0] = dp[i-1][0]+grid[i][0];
+    }
+    for(size_t i = 1; i < grid[0].size(); i++)
+    {
+        dp[0][i] = dp[0][i-1]+grid[0][i];
+        
+    }
+    
+
+    for(size_t i = 1; i < grid.size(); i++)
+    {
+        
+        for(size_t j = 1; j < grid[0].size(); j++)
+        {
+            dp[i][j]= min(dp[i-1][j],dp[i][j-1])+grid[i][j];
+        }
+        
+    }
+    return dp.back().back();
+    
+}
+
+/**
+ * @brief 地牢游戏
+ *      从右下往左上地推
+ * @param argc 
+ * @param argv 
+ * @return int 
+ */
+
+int calculateMinimumHP(vector<vector<int>>& dungeon) {
+
+    int rows =dungeon.size();
+    int columns = dungeon[0].size();
+    vector<vector<int> > dp(dungeon.size(),vector<int>(dungeon[0].size(),INT16_MAX));
+    dp[rows-1][columns-1] = 1-dungeon.back().back()>0?1-dungeon.back().back():1;
+
+    //处理边界
+    for(int i= rows -2;i>=0;i--){
+        dp[i][columns-1] = max(dp[i+1][columns-1]-dungeon[i][columns-1],1);
+    }
+    for(int j = columns-2;j>=0;j--){
+        dp[rows-1][j]=max(dp[rows-1][j+1]-dungeon[rows-1][j],1);
+    }
+
+    for(int i= rows -2;i>=0;i--){
+        for(int j = columns-2;j>=0;j--){
+            int a = max(dp[i+1][j]-dungeon[i][j],1);
+            int b = max(dp[i][j+1] - dungeon[i][j],1);
+            dp[i][j] = min(a,b);
+        }
+    }
+    return dp[0][0];
+
+    /*
+    int m = dungeon.size(), n = dungeon[0].size();
+        vector<vector<int>> dp(m + 1, vector<int>(n + 1, INT_MAX));
+        dp[m][n - 1] = 1; dp[m - 1][n] = 1;
+        for (int i = m - 1; i >= 0; --i) {
+            for (int j = n - 1; j >= 0; --j) {
+                dp[i][j] = max(1, min(dp[i + 1][j], dp[i][j + 1]) - dungeon[i][j]);
+            }
+        }
+        return dp[0][0];
+    */
+
+
+}
+
+/**
+ * @brief 袋鼠过河
+ * 
+ * @param nums 
+ * @return int 
+ */
+int kangaroo(vector<int> &nums){
+    vector<int> dp(nums.size()+1,INT16_MAX);
+    dp[0] = 0;
+
+    for(int i = 1; i <= nums.size(); i++)
+    {
+
+
+        for(int j = 0; j < i; j++)
+        {
+       
+            if(nums[j]-(i-j)>=0){
+
+                dp[i] = min(dp[j]+1,dp[i]);
+
+            }
+            
+        }
+        
+    }
+    return (dp.back()==INT16_MAX?-1:dp.back());
+    
+    
+}
+
+
 int main(int argc, char const *argv[])
 {
 
-    int a1[]={2};
-    int a2[]={3,4};
-    int a3[]={6,5,7};
+    int a1[]={-2,-3,3};
+    int a2[]={-5,-10,1};
+    int a3[]={10,30,-5};
     int a4[]={4,1,8,3};
     vector<vector<int> > nums;
-    nums.push_back(vector<int>(a1,a1+1));
-    nums.push_back(vector<int>(a2,a2+2));
+    nums.push_back(vector<int>(a1,a1+3));
+    nums.push_back(vector<int>(a2,a2+3));
     nums.push_back(vector<int>(a3,a3+3));
-    nums.push_back(vector<int>(a4,a4+4));
 
-    minimumTotal(nums);
+
+    int b[]={2,0,1,1,1};
+    vector<int> nums2(b,b+5);
+    cout<<kangaroo(nums2);
     cin.get();
     return 0;
 }

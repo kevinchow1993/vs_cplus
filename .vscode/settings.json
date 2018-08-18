@@ -4,6 +4,8 @@
         "istream": "cpp",
         "array": "cpp",
         "hash_map": "cpp",
-        "cmath": "cpp"
+        "cmath": "cpp",
+        "chrono": "cpp",
+        "limits": "cpp"
     }
 }
