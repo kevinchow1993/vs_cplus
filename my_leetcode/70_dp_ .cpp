@@ -113,7 +113,7 @@ int coinChange(vector<int> &coins,int amount){
 }
 
 /**
- * @brief 三角形
+ * @brief 120三角形 最短路径和
  * 
  * @param triangle 
  * @return int 
@@ -139,9 +139,6 @@ int minimumTotal(vector<vector<int> > &triangle){
         
     }
     return dp[0][0];
-    
-
-    
 }
 
 int main(int argc, char const *argv[])
