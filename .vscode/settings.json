@@ -7,5 +7,6 @@
         "cmath": "cpp",
         "chrono": "cpp",
         "limits": "cpp"
-    }
+    },
+    "cmake.configureOnOpen": false
 }

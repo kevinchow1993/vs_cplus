@@ -300,24 +300,89 @@ int kangaroo(vector<int> &nums){
     
     
 }
+/**
+ * @brief 最大连续乘积序列
+ *  输入 double a1={-2.5,4,0,3,0.5,8,-1};
+ *      vector<double> nums4(a1,a1+8);
+ * @param nums 
+ * @return double 
+ */
+double  maxProductSubarray(vector<double> &nums){
+    if(nums.empty()){
+        return 0.0;
+    }
+    double res = 0.0;
+    vector<double> maxdp(nums.size(),0.0);
+    vector<double> mindp(nums.size(),0.0);
+    maxdp[0] = nums[0];
+    mindp[0] = nums[0];
+
+    for(int i = 1;i<nums.size();i++){
+        double maxend = maxdp[i-1]*nums[i];
+        double minend = mindp[i-1]*nums[i];
+        maxdp[i] = max(max(maxend,minend),nums[i]);
+        mindp[i] = min(min(maxend,minend),nums[i]);
+        res = max(maxdp[i],res);
+    }   
+    return res;
+}
+
+/**
+ * @brief n个数的数组,只能用乘法,求n-1个数最大乘积
+ * 
+ * @param nums 
+ * @return int 
+ */
+int product(vector<int> &nums){
+    vector<int> forward_p(nums.size(),1);
+    vector<int> backward_p(nums.size(),1);
+    forward_p[0] = nums[0];
+    backward_p.back() = nums.back();
+
+    int res  = 0;
+    for(size_t i = 1; i < nums.size(); i++) 
+    {
+        forward_p[i]=forward_p[i-1]*nums[i];
+    }
+    
+    for(int i = nums.size()-2; i >=0; i--)
+    {
+        backward_p[i] = backward_p[i+1]*nums[i];
+    }
+    int first = backward_p[1];
+    int last  = forward_p[nums.size()-2];
+    for(size_t i = 1; i < nums.size()-1; i++)
+    {
+        res = max(res,forward_p[i-1]*backward_p[i+1]);
+    }
+    return max(first,max(last,res));
+    
+    
+}
+
+
 
 
 int main(int argc, char const *argv[])
 {
 
-    int a1[]={-2,-3,3};
-    int a2[]={-5,-10,1};
-    int a3[]={10,30,-5};
-    int a4[]={4,1,8,3};
+    int a1[]={1,1,1,0,0};
+    int a2[]={1,1,0,0,0};
+    int a3[]={0,0,1,0,0};
+    int a4[]={1,0,0,0,1};
+
+    double a5[] ={-2.5,4.0,0.0,3.0,0.5,8.0,-1.0};
+     vector<double> nums4(a5,a5+7);
     vector<vector<int> > nums;
-    nums.push_back(vector<int>(a1,a1+3));
-    nums.push_back(vector<int>(a2,a2+3));
-    nums.push_back(vector<int>(a3,a3+3));
+    nums.push_back(vector<int>(a1,a1+5));
+    nums.push_back(vector<int>(a2,a2+5));
+    nums.push_back(vector<int>(a3,a3+5));
+    nums.push_back(vector<int>(a4,a4+5));
 
 
     int b[]={2,0,1,1,1};
     vector<int> nums2(b,b+5);
-    cout<<kangaroo(nums2);
+    cout<<" ";
     cin.get();
     return 0;
 }

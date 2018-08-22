@@ -15,7 +15,7 @@ using namespace std;
 		if (newx < 0 || newx >= mark.size() || newy < 0 || newy >= mark.size())
 			continue;
 		if (mark[newx][newy] == 0 && grid[newx][newy] == 1)
-			sum ++;
+			sum++;
 			DFS(mark, grid, sum, newx, newy);
 	}
 
